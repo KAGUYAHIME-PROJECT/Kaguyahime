@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>KAGUYAHIME</title>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+}
+
+/* 背景：竹林 */
+body {
+  background-image:
+    linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7)),
+    url("https://images.unsplash.com/photo-1564518098559-98b6f8b9c7e1?auto=format&fit=crop&w=1600&q=80");
+  background-size: cover;
+  background-position: center;
+}
+
+/* 月光 */
+.moonlight {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at 70% 20%,
+    rgba(255,255,220,0.25),
+    rgba(0,0,0,0.8) 60%
+  );
+  pointer-events: none;
+}
+
+/* 中央配置 */
+.scene {
+  position: relative;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 80px;
+}
+
+/* 竹の入力欄 */
+.bamboo-input {
+  width: 320px;
+  padding: 14px;
+  background: rgba(180, 210, 160, 0.85);
+  clip-path: polygon(
+    0 0,
+    92% 0,
+    100% 50%,
+    92% 100%,
+    0 100%,
+    6% 50%
+  );
+}
+
+.bamboo-input input {
+  width: 100%;
+  font-size: 16px;
+  background: transparent;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* 浮かぶ文字 */
+.floating-text {
+  position: absolute;
+  left: 50%;
+  bottom: 160px;
+  transform: translateX(-50%);
+  color: rgba(255,255,240,0.95);
+  font-size: 20px;
+  letter-spacing: 0.12em;
+  text-shadow:
+    0 0 6px rgba(255,255,255,0.6),
+    0 0 14px rgba(255,255,255,0.4);
+  animation: floatUp 4s ease-out forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -120px);
+  }
+}
+</style>
+</head>
+
+<body>
+  <div class="moonlight"></div>
+
+  <div class="scene">
+    <div class="bamboo-input">
+      <input id="textInput" type="text" placeholder="忘れたふりをしている大切なことは、ありませんか。">
+    </div>
+  </div>
+
+<script>
+const input = document.getElementById("textInput");
+
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && input.value.trim() !== "") {
+    createFloatingText(input.value);
+    input.value = "";
+  }
+});
+
+function createFloatingText(text) {
+  const el = document.createElement("div");
+  el.className = "floating-text";
+  el.textContent = text;
+  document.body.appendChild(el);
+
+  setTimeout(() => {
+    el.remove();
+  }, 4000);
+}
+</script>
+</body>
+</html>
