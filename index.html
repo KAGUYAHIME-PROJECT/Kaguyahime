@@ -1,132 +1,82 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>KAGUYAHIME</title>
-<style>
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
-}
+  <meta charset="UTF-8" />
+  <title>Once Upon a Time</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-/* 背景：竹林 */
-body {
-  background-image:
-    linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7)),
-    url("https://images.unsplash.com/photo-1564518098559-98b6f8b9c7e1?auto=format&fit=crop&w=1600&q=80");
-  background-size: cover;
-  background-position: center;
-}
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #000;
+      color: #eee;
+      font-family: Georgia, "Times New Roman", serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-/* 月光 */
-.moonlight {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(
-    circle at 70% 20%,
-    rgba(255,255,220,0.25),
-    rgba(0,0,0,0.8) 60%
-  );
-  pointer-events: none;
-}
+    h1 {
+      font-size: 22px;
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
 
-/* 中央配置 */
-.scene {
-  position: relative;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 80px;
-}
+    textarea {
+      width: 260px;
+      height: 80px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #eee;
+      padding: 8px;
+      resize: none;
+      font-family: inherit;
+    }
 
-/* 竹の入力欄 */
-.bamboo-input {
-  width: 320px;
-  padding: 14px;
-  background: rgba(180, 210, 160, 0.85);
-  clip-path: polygon(
-    0 0,
-    92% 0,
-    100% 50%,
-    92% 100%,
-    0 100%,
-    6% 50%
-  );
-}
+    button {
+      margin-top: 16px;
+      padding: 6px 16px;
+      background: transparent;
+      color: #eee;
+      border: 1px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+    }
 
-.bamboo-input input {
-  width: 100%;
-  font-size: 16px;
-  background: transparent;
-  border: none;
-  outline: none;
-  box-sizing: border-box;
-}
+    .preset {
+      margin-top: 12px;
+      font-size: 12px;
+      opacity: 0.6;
+      cursor: pointer;
+    }
 
-/* 浮かぶ文字 */
-.floating-text {
-  position: absolute;
-  left: 50%;
-  bottom: 160px;
-  transform: translateX(-50%);
-  color: rgba(255,255,240,0.95);
-  font-size: 20px;
-  letter-spacing: 0.12em;
-  text-shadow:
-    0 0 6px rgba(255,255,255,0.6),
-    0 0 14px rgba(255,255,255,0.4);
-  animation: floatUp 4s ease-out forwards;
-}
-
-@keyframes floatUp {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, 20px);
-  }
-  20% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -120px);
-  }
-}
-</style>
+    #response {
+      margin-top: 32px;
+      white-space: pre-line;
+      font-size: 16px;
+      opacity: 0.95;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="moonlight"></div>
 
-  <div class="scene">
-    <div class="bamboo-input">
-      <input id="textInput" type="text" placeholder="忘れたふりをしている大切なことは、ありませんか。">
-    </div>
+  <h1>Once upon a time</h1>
+
+  <textarea id="questionInput" placeholder="Ask a question"></textarea>
+
+  <button onclick="submitQuestion()">Ask</button>
+
+  <div class="preset" onclick="askPreset(0)">
+    What is the KAGUYAHIME PROJECT
+  </div>
+  <div class="preset" onclick="askPreset(1)">
+    What did you do
   </div>
 
-<script>
-const input = document.getElementById("textInput");
+  <div id="response"></div>
 
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && input.value.trim() !== "") {
-    createFloatingText(input.value);
-    input.value = "";
-  }
-});
-
-function createFloatingText(text) {
-  const el = document.createElement("div");
-  el.className = "floating-text";
-  el.textContent = text;
-  document.body.appendChild(el);
-
-  setTimeout(() => {
-    el.remove();
-  }, 4000);
-}
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
