@@ -36,7 +36,7 @@ function respond(text) {
     : randomFrom(normalRepliesEN);
 
   document.getElementById("response").innerText =
-    reply + "\n— Good bye";
+    reply + "\n—Oshimai";
 }
 
 function submitQuestion() {
