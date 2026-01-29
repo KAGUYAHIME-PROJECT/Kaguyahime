@@ -36,7 +36,7 @@ function respond(text) {
     : randomFrom(normalRepliesEN);
 
   document.getElementById("response").innerText =
-    reply + "\n— End";
+    reply + "\n— Good bye";
 }
 
 function submitQuestion() {
@@ -48,7 +48,7 @@ function submitQuestion() {
 function askPreset(index) {
   const presets = [
     "What is the KAGUYAHIME PROJECT",
-    "What did you do"
+    "What did the KAGUYAHIME PROJECT do"
   ];
   respond(presets[index]);
 }
